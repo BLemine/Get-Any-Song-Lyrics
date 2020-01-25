@@ -23,4 +23,4 @@ A simple but efficient app that gets you your favorite song lyrics
 - after confirming by clicking _FIND IT_ button here's the lyrics : 
 
 ![](readme_media/lyrics3.png)
-![](readme_media/lyrics.4.png)
+![](readme_media/lyrics4.png)
