@@ -1,10 +1,10 @@
-### About :
+### About :notes: :
 
 A simple but efficient app that gets you your favorite song lyrics
 
 ---
 
-### Setup : 
+### Setup :flags: : 
 
 - go to the repository _lyrics_ by typing ``` cd lyrics ```
 - type ``` npm install ``` to install the required packages and dependencies.
@@ -12,7 +12,7 @@ A simple but efficient app that gets you your favorite song lyrics
 
 ---
 
-### Screen-shots : 
+### Screen-shots :movie_camera: : 
 
 - it asks you to type your singer and the name of the song : 
 
