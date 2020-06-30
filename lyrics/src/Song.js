@@ -25,48 +25,68 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: "100vh"
-  },
-  image: {
-    backgroundImage: "url(https://source.unsplash.com/featured/?song)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "dark"
-        ? theme.palette.grey[900]
-        : theme.palette.grey[50],
-    backgroundSize: "cover",
-    backgroundPosition: "center"
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
 
 export default function Song() {
+  const [singerImg, setSingerImg] = useState("https://source.unsplash.com/featured/?song");
+  const useStyles = makeStyles(theme => ({
+    root: {
+      height: "100vh"
+    },
+    image: {
+      backgroundImage: "url(" + singerImg + ")",
+      backgroundRepeat: "no-repeat",
+      backgroundColor:
+        theme.palette.type === "dark"
+          ? theme.palette.grey[900]
+          : theme.palette.grey[50],
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    },
+    paper: {
+      margin: theme.spacing(8, 4),
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main
+    },
+    form: {
+      width: "100%", // Fix IE 11 issue.
+      marginTop: theme.spacing(1)
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2)
+    }
+  }));
+
   const classes = useStyles();
   const [gotten, setGotten] = useState(false);
   const [lyrics, setLyrics] = useState();
+  const getSingerImg = (singerName) => {
+    fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + singerName, {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+        "x-rapidapi-key": "895e85f646msh8b543c70a1175d4p1da90bjsnb13563b5172d"
+      }
+    })
+      .then(res => res.json())
+      .then(response => {
+        if (response.data.length > 0)
+          setSingerImg(response.data[0].artist.picture_big)
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   const submit = e => {
     e.preventDefault();
     const singer = e.target.childNodes[0].lastChild.childNodes[0].value;
     const song = e.target.childNodes[1].lastChild.childNodes[0].value;
     setGotten(true);
+    getSingerImg(singer);
     setLyrics(
       <React.Fragment>
         <Lyrics singer={singer} song={song} />
